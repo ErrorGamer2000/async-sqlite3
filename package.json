@@ -1,6 +1,6 @@
 {
   "name": "@errorgamer2000/async-sqlite3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Asynchronous wrappers for `node-sqlite3`",
   "main": "dist/index.js",
   "scripts": {
