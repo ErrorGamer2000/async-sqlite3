@@ -1,4 +1,4 @@
-import { Database as SqliteDatabase, OPEN_READWRITE, RunResult, Statement as SqliteStatement } from "sqlite3";
+import { Database as SqliteDatabase, OPEN_READWRITE, RunResult, Statement as SqliteStatement, OPEN_FULLMUTEX, OPEN_CREATE } from "sqlite3";
 import { wrapper } from "./util";
 import { EventEmitter } from "stream";
 import { Statement } from "./statement";
@@ -15,9 +15,9 @@ export class Database extends EventEmitter {
 
     if (typeof mode === "function") {
       callback = mode;
-      mode = OPEN_READWRITE;
+      mode = OPEN_READWRITE | OPEN_CREATE | OPEN_FULLMUTEX;
     }
-    mode ??= OPEN_READWRITE;
+    mode ??= OPEN_READWRITE | OPEN_CREATE | OPEN_FULLMUTEX;
     callback ??= () => {};
     this._database = new SqliteDatabase(fileName, mode, callback);
     const oldEmit = this._database.emit.bind(this._database);
